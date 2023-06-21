@@ -31,6 +31,13 @@ Assets/
 └── ...
 ```
 
+Git flow:
+
+```
+main 
+└──feature/name
+```
+
 ## Script prefix:
 
 * M - MonoBehaviour
