@@ -7,8 +7,9 @@
     <li>
       <a href="#about-the-project">About The Project</a>
         <ul>
-            <li><a href="#project-structure">Project strcture</a></li>
-            <li><a href="#script-prefixes">Script prefix</a></li>
+            <li><a href="#project-structure">Project Structure</a></li>
+            <li><a href="#git-flow">Git Flow</a></li>
+            <li><a href="#script-prefixes">Script Prefix</a></li>
             <li><a href="#answers">Answers</a></li>
         </ul>
     </li>
@@ -31,7 +32,7 @@ Assets/
 └── ...
 ```
 
-Git flow:
+## Git flow:
 
 ```
 main 
