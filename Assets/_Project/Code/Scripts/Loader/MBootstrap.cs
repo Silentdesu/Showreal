@@ -3,7 +3,7 @@ using UnityEngine.AddressableAssets;
 
 namespace TechnoDemo.Loader
 {
-    public sealed class Bootstrap : MonoBehaviour
+    public sealed class MBootstrap : MonoBehaviour
     {
         [SerializeField] private string m_sceneName = "Sandbox";
     

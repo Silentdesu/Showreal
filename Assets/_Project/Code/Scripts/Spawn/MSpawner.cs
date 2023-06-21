@@ -20,9 +20,9 @@ namespace TechnoDemo.Spawn
     }
 
     [DisallowMultipleComponent]
-    public sealed class Spawner : MonoBehaviour, ISpawner
+    public sealed class MSpawner : MonoBehaviour, ISpawner
     {
-        [SerializeField] private KeyValueX<SpawnPoint.ESpawnType, Transform>[] m_spawnPoints;
+        [SerializeField] private SKeyValueX<MSpawnPoint.ESpawnType, Transform>[] m_spawnPoints;
 
         private IObjectResolver m_resolver;
         private SpawnerDataSO m_settings;
@@ -39,12 +39,12 @@ namespace TechnoDemo.Spawn
 
         private void Start()
         {
-            SpawnGameObjectAsync(m_settings.PlayerRef, SpawnPoint.ESpawnType.Player).Forget();
+            SpawnGameObjectAsync(m_settings.PlayerRef, MSpawnPoint.ESpawnType.Player).Forget();
         }
 
         private async UniTask<GameObject> SpawnGameObjectAsync(
             AssetReferenceGameObject @ref,
-            SpawnPoint.ESpawnType spawnType)
+            MSpawnPoint.ESpawnType spawnType)
         {
             await @ref.LoadAssetAsync();
 

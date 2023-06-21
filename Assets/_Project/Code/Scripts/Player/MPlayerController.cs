@@ -8,7 +8,7 @@ namespace TechnoDemo.Player
     }
     
     [DisallowMultipleComponent]
-    public sealed class PlayerController : MonoBehaviour, IPlayer
+    public sealed class MPlayerController : MonoBehaviour, IPlayer
     {
         public Transform Transform { get; private set; }
 

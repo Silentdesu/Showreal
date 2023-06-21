@@ -9,7 +9,7 @@ namespace TechnoDemo.Camera
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ICinemachineCamera))]
-    public sealed class CameraController : MonoBehaviour
+    public sealed class MCameraController : MonoBehaviour
     {
         private ICinemachineCamera m_camera;
         private Transform m_target;
@@ -23,7 +23,7 @@ namespace TechnoDemo.Camera
 
         private async void Start()
         {
-            this.Log($"{nameof(CameraController)} Start() begin!");
+            this.Log($"{nameof(MCameraController)} Start() begin!");
             
             m_camera = GetComponent<ICinemachineCamera>();
             
@@ -36,7 +36,7 @@ namespace TechnoDemo.Camera
             m_camera.LookAt = m_target;
             m_camera.Follow = m_target;
             
-            this.Log($"{nameof(CameraController)} Start() end!");
+            this.Log($"{nameof(MCameraController)} Start() end!");
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace TechnoDemo.Spawn
 {
-    public class SpawnPoint : MonoBehaviour
+    public class MSpawnPoint : MonoBehaviour
     {
         public enum ESpawnType : int
         {

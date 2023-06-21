@@ -6,7 +6,7 @@ using VContainer.Unity;
 namespace TechnoDemo.Scopes
 {
     [DisallowMultipleComponent]
-    public sealed class SceneScope : BaseScope
+    public sealed class LSceneScope : LBaseScope
     {
         [SerializeField] private SceneScopeContainerDataSO m_containerDataSo;
         
@@ -20,7 +20,7 @@ namespace TechnoDemo.Scopes
 
         private void RegisterInHierarchy(IContainerBuilder builder)
         {
-            builder.RegisterComponentInHierarchy<Spawner>().As<ISpawner>().WithParameter(m_containerDataSo.SpawnerDataSo);
+            builder.RegisterComponentInHierarchy<MSpawner>().As<ISpawner>().WithParameter(m_containerDataSo.SpawnerDataSo);
         }
     }
 }
