@@ -22,12 +22,14 @@ Showcase of skills earned making some commercial projects and learn!
 
 ## Project structure:
 
+```
 Assets/ 
 ├──_Project/
 │   ├── Art/
 │   ├── Code/
 │   └── Levels/
 └── ...
+```
 
 ## Script prefix:
 
@@ -39,7 +41,7 @@ Assets/
 
 ## Answers:
 
-* Prefix for script names just for easy to search them and to test feature of Unreal Engine when adding a new C++ script.
+* Prefix for script names just for easy to search them.
 * Naming convention took from C++ for practice and to test efficiency of this method.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
