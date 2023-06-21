@@ -1,5 +1,6 @@
-﻿using System;
-using Cinemachine;
+﻿using Cinemachine;
+using TechnoDemo.Core;
+using TechnoDemo.Extensions;
 using TechnoDemo.Player;
 using TechnoDemo.Spawn;
 using UnityEngine;
@@ -13,12 +14,12 @@ namespace TechnoDemo.Camera
     {
         private ICinemachineCamera m_camera;
         private Transform m_target;
-        private ISpawner m_spawner;
+        private IGameManager m_gameManager;
         
         [Inject]
-        private void Construct(ISpawner spawner)
+        private void Construct(IGameManager gameManager)
         {
-            m_spawner = spawner;
+            m_gameManager = gameManager;
         }
 
         private async void Start()
@@ -26,12 +27,16 @@ namespace TechnoDemo.Camera
             this.Log($"{nameof(MCameraController)} Start() begin!");
             
             m_camera = GetComponent<ICinemachineCamera>();
-            
-            var opResult = await m_spawner.TryGetObjectAsync<IPlayer>();
 
-            if (opResult.Item1 == false) return;
+            var opResult1 = await m_gameManager.GetSpawnedContexts().TryGetObjectAsync<ISpawner>();
+
+            if (opResult1.Item1 == false) return;
             
-            m_target = opResult.Item2.Transform;
+            var opResult2 = await opResult1.Item2.GetSpawnedObjects().TryGetObjectAsync<IPlayer>(); 
+
+            if (opResult2.Item1 == false) return;
+            
+            m_target = opResult2.Item2.Transform;
             
             m_camera.LookAt = m_target;
             m_camera.Follow = m_target;

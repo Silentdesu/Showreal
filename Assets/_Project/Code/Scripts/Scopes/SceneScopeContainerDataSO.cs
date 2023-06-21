@@ -1,4 +1,4 @@
-﻿using TechnoDemo.Spawn;
+﻿using TechnoDemo.Core;
 using UnityEngine;
 
 namespace TechnoDemo.Scopes
@@ -6,6 +6,6 @@ namespace TechnoDemo.Scopes
     [CreateAssetMenu(fileName = nameof(SceneScopeContainerDataSO), menuName = "SO/Scopes/Scene Container")]
     public sealed class SceneScopeContainerDataSO : ScriptableObject
     {
-        public SpawnerDataSO SpawnerDataSo;
+        public GameManagerDataSO GameManagerDataSo;
     }
 }

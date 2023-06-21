@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74597c74dae4e1abc5e974ec45ce1d5, type: 3}
-  m_Name: SceneScopeContainerDataSO
+  m_Script: {fileID: 11500000, guid: ef450cbb5f6f4ed3a9f11dfb777bc57e, type: 3}
+  m_Name: GameManagerDataSO
   m_EditorClassIdentifier: 
-  GameManagerDataSo: {fileID: 11400000, guid: 7382cf8ed12c0a04c912479344a6d160, type: 2}
-  SpawnerDataSo: {fileID: 11400000, guid: 4431500708550914483032837137e6eb, type: 2}
+  SceneContexts:
+  - {fileID: 7331954530383183536, guid: cd92ae20606e8424eaacfd8a539a8f57, type: 3}
+  - {fileID: 5663214847596107858, guid: df01c711a55769e4cb10475d36ce79c1, type: 3}

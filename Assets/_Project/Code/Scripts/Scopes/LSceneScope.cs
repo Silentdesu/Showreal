@@ -1,4 +1,4 @@
-using TechnoDemo.Spawn;
+using TechnoDemo.Core;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -13,14 +13,10 @@ namespace TechnoDemo.Scopes
         protected override void Configure(IContainerBuilder builder)
         {
             RegisterMessageBrokers(builder, out var options);
-            RegisterInHierarchy(builder);
+            
+            builder.RegisterEntryPoint<CGameManager>().As<IGameManager>().WithParameter(m_containerDataSo.GameManagerDataSo);
             
             this.LogDIRegisterSuccess();
-        }
-
-        private void RegisterInHierarchy(IContainerBuilder builder)
-        {
-            builder.RegisterComponentInHierarchy<MSpawner>().As<ISpawner>().WithParameter(m_containerDataSo.SpawnerDataSo);
         }
     }
 }
