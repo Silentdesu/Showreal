@@ -1,15 +1,25 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using TechnoDemo.Core;
 using TechnoDemo.Extensions;
 using TechnoDemo.Input;
+using TechnoDemo.Interfaces;
+using TechnoDemo.Skills;
 using UnityEngine;
 using UnityEngine.Profiling;
+using VContainer;
 
 namespace TechnoDemo.Player
 {
     public interface IPlayer
     {
         Transform Transform { get; }
+        CharacterController CharacterController { get; }
+        Animator Animator { get; }
+        UnityEngine.Camera Camera { get; }
+        PlayerSettingsSO Settings { get; }
+        
         void Inject(in IGameManager gameManager);
     }
 
@@ -18,27 +28,29 @@ namespace TechnoDemo.Player
     public sealed class PlayerController : MonoBehaviour, IPlayer
     {
         public Transform Transform { get; private set; }
+        public CharacterController CharacterController { get; private set; }
+        public Animator Animator { get; private set; }
+        public UnityEngine.Camera Camera { get; private set; }
+        public PlayerSettingsSO Settings { get; private set; }
 
-        private CharacterController m_controller;
         private IInput m_input;
+        private ISkillHandler m_skillHandler;
 
-        private PlayerSettingsSO m_settings;
-        
-        private void Awake()
+        [Inject]
+        private void Construct(ISkillHandler skillHandler)
         {
-            Transform = transform;
+            m_skillHandler = skillHandler;
         }
 
-        private async void Start()
+        private IEnumerator Start()
         {
-            try
-            {
-                m_controller = GetComponent<CharacterController>();
-            }
-            catch (Exception e)
-            {
-                this.LogError(e);
-            }
+            Transform = transform;
+            Camera = UnityEngine.Camera.main;
+            CharacterController = GetComponent<CharacterController>();
+            
+            m_skillHandler.AddSkill(new MovementSkill(m_skillHandler).Setup(this));
+            
+            yield return null;
         }
 
         private void OnDestroy()
@@ -48,24 +60,20 @@ namespace TechnoDemo.Player
 
         private void Update()
         {
-            Profiler.BeginSample($"{nameof(PlayerController)} Update()");
-            
-            Vector3 movement = m_input.Move;
-            movement = movement.X0Y();
-            m_controller.Move(movement * m_settings.SpeedMultiplier * Time.deltaTime);
-            
-            Profiler.EndSample();
+            Span<IUpdateTickable> skills = m_skillHandler.UpdateTickSkills;
+
+            for (int i = 0, count = skills.Length; i < count; i++) skills[i].UpdateTick(m_input);
         }
 
         void IPlayer.Inject(in IGameManager gameManager)
         {
             Profiler.BeginSample($"{nameof(PlayerController)} Inject()");
-            
-            m_settings = gameManager.ContainerSO.PlayerSettingsSo;
+
+            Settings = gameManager.ContainerSO.PlayerSettingsSo;
 
             if (gameManager.GetSpawnedContexts().TryGetObject(out IInput input))
                 m_input = input;
-            
+
             this.LogInjectSuccess();
             Profiler.EndSample();
         }

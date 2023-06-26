@@ -39,7 +39,7 @@ namespace TechnoDemo.Core
         {
             var sceneContext = new GameObject("Scene Contexts");
 
-            System.Span<SceneContext> contexts = m_container.GameManagerSo.SceneContexts;
+            Span<SceneContext> contexts = m_container.GameManagerSo.SceneContexts;
 
             for (int i = 0, count = contexts.Length; i < count; i++)
             {
