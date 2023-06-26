@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
-public static class CLogUtils
+public static class LogUtils
 {
     private const string UNITY_EDITOR = "UNITY_EDITOR";
     private const string DEV_BUILD = "DEVELOPMENT_BUILD";

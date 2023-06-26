@@ -2,7 +2,7 @@
 
 namespace TechnoDemo.Core
 {
-    public abstract class MSceneContext : MonoBehaviour
+    public abstract class SceneContext : MonoBehaviour
     {
     
     }

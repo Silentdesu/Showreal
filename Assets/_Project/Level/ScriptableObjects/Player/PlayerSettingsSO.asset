@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74597c74dae4e1abc5e974ec45ce1d5, type: 3}
-  m_Name: SceneScopeContainerDataSO
+  m_Script: {fileID: 11500000, guid: dc9dfe16e15949dbb7e9dff8e2c3c2ec, type: 3}
+  m_Name: PlayerSettingsSO
   m_EditorClassIdentifier: 
-  GameManagerSo: {fileID: 11400000, guid: 7382cf8ed12c0a04c912479344a6d160, type: 2}
-  PlayerSettingsSo: {fileID: 11400000, guid: 55a1604b69ee10d49a520c0ce80b686d, type: 2}
+  SpeedMultiplier: 100

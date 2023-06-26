@@ -7,11 +7,11 @@ namespace TechnoDemo.Spawn
 {
     public interface ISpawnPoint
     {
-        MSpawnPoint.ESpawnType Type { get; }
+        SpawnPoint.ESpawnType Type { get; }
         Transform Transform { get; }
     }
     
-    public sealed class MSpawnPoint : MonoBehaviour, ISpawnPoint
+    public sealed class SpawnPoint : MonoBehaviour, ISpawnPoint
     {
         public enum ESpawnType : int
         {

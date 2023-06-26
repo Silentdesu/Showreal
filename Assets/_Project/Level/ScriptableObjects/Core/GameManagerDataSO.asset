@@ -15,3 +15,8 @@ MonoBehaviour:
   SceneContexts:
   - {fileID: 7331954530383183536, guid: cd92ae20606e8424eaacfd8a539a8f57, type: 3}
   - {fileID: 5663214847596107858, guid: df01c711a55769e4cb10475d36ce79c1, type: 3}
+  PlayerRef:
+    m_AssetGUID: 0fa1ce6abafef094ea3e23944b9d7c9c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

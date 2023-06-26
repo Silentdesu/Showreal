@@ -2,7 +2,7 @@ using VContainer;
 
 namespace TechnoDemo.Scopes
 {
-    public sealed class LGlobalScope : LBaseScope
+    public sealed class GlobalScope : BaseScope
     {
         protected override void Configure(IContainerBuilder builder)
         {

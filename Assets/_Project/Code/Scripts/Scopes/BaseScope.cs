@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace TechnoDemo.Scopes
 {
-    public abstract class LBaseScope : LifetimeScope
+    public abstract class BaseScope : LifetimeScope
     {
         protected virtual void RegisterMessageBrokers(in IContainerBuilder builder, out MessagePipeOptions options)
         {

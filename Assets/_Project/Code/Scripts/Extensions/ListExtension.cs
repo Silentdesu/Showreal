@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TechnoDemo.Extensions
 {
-    public static class FGetExtension
+    public static class ListExtension
     {
         private static T GetObject<T>(this IList<GameObject> @list) where T : class
         {

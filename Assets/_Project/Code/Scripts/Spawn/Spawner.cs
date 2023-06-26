@@ -13,13 +13,13 @@ namespace TechnoDemo.Spawn
     {
         void AddSpawnPoint(in ISpawnPoint spawnPoint);
         IList<GameObject> GetSpawnedObjects();
-        UniTask<GameObject> SpawnGameObjectAsync(AssetReferenceGameObject reference, MSpawnPoint.ESpawnType type);
+        UniTask<GameObject> SpawnGameObjectAsync(AssetReferenceGameObject reference, SpawnPoint.ESpawnType type);
     }
 
     [DisallowMultipleComponent]
-    public sealed class MSpawner : MSceneContext, ISpawner
+    public sealed class Spawner : SceneContext, ISpawner
     {
-        private List<SKeyValueX<MSpawnPoint.ESpawnType, Transform>> m_spawnPoints = new List<SKeyValueX<MSpawnPoint.ESpawnType, Transform>>(10);
+        private List<KeyValueX<SpawnPoint.ESpawnType, Transform>> m_spawnPoints = new List<KeyValueX<SpawnPoint.ESpawnType, Transform>>(10);
 
         private IObjectResolver m_resolver;
 
@@ -35,7 +35,7 @@ namespace TechnoDemo.Spawn
 
         public void AddSpawnPoint(in ISpawnPoint spawnPoint)
         {
-            m_spawnPoints.Add(new SKeyValueX<MSpawnPoint.ESpawnType, Transform>
+            m_spawnPoints.Add(new KeyValueX<SpawnPoint.ESpawnType, Transform>
             {
                 Key = spawnPoint.Type, 
                 Value = spawnPoint.Transform
@@ -46,7 +46,7 @@ namespace TechnoDemo.Spawn
 
         public async UniTask<GameObject> SpawnGameObjectAsync(
             AssetReferenceGameObject reference,
-            MSpawnPoint.ESpawnType spawnType)
+            SpawnPoint.ESpawnType spawnType)
         {
             await reference.LoadAssetAsync();
 
