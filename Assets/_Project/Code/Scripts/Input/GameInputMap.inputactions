@@ -6,7 +6,7 @@
             "id": "60df7068-08ae-4c1e-a461-5491f3d14371",
             "actions": [
                 {
-                    "name": "Action",
+                    "name": "Fire",
                     "type": "Button",
                     "id": "38defb58-5a0d-4fae-8036-3fa46da4f511",
                     "expectedControlType": "Button",
@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Value",
+                    "id": "5fee5624-8747-4260-bcc9-ece1fccbc7bb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -41,7 +50,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Action",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eeb0dbd6-b1de-450f-bb21-fba0ad327927",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -125,11 +145,33 @@
                 {
                     "name": "",
                     "id": "219e7fd1-3b1a-4e0b-9f53-ba453cee0167",
-                    "path": "<Gamepad>/rightStick",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e3465839-865d-43d8-89ee-9546f592365b",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4f50cf93-1a9f-4b19-8d64-7c3ca48fac80",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

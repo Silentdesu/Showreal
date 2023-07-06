@@ -28,7 +28,7 @@ public partial class @GameInputMap: IInputActionCollection2, IDisposable
             ""id"": ""60df7068-08ae-4c1e-a461-5491f3d14371"",
             ""actions"": [
                 {
-                    ""name"": ""Action"",
+                    ""name"": ""Fire"",
                     ""type"": ""Button"",
                     ""id"": ""38defb58-5a0d-4fae-8036-3fa46da4f511"",
                     ""expectedControlType"": ""Button"",
@@ -53,6 +53,15 @@ public partial class @GameInputMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Value"",
+                    ""id"": ""5fee5624-8747-4260-bcc9-ece1fccbc7bb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -63,7 +72,18 @@ public partial class @GameInputMap: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Action"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eeb0dbd6-b1de-450f-bb21-fba0ad327927"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -147,11 +167,33 @@ public partial class @GameInputMap: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""219e7fd1-3b1a-4e0b-9f53-ba453cee0167"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3465839-865d-43d8-89ee-9546f592365b"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f50cf93-1a9f-4b19-8d64-7c3ca48fac80"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -162,9 +204,10 @@ public partial class @GameInputMap: IInputActionCollection2, IDisposable
 }");
         // Main
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
-        m_Main_Action = m_Main.FindAction("Action", throwIfNotFound: true);
+        m_Main_Fire = m_Main.FindAction("Fire", throwIfNotFound: true);
         m_Main_Look = m_Main.FindAction("Look", throwIfNotFound: true);
         m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
+        m_Main_Sprint = m_Main.FindAction("Sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -226,16 +269,18 @@ public partial class @GameInputMap: IInputActionCollection2, IDisposable
     // Main
     private readonly InputActionMap m_Main;
     private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
-    private readonly InputAction m_Main_Action;
+    private readonly InputAction m_Main_Fire;
     private readonly InputAction m_Main_Look;
     private readonly InputAction m_Main_Move;
+    private readonly InputAction m_Main_Sprint;
     public struct MainActions
     {
         private @GameInputMap m_Wrapper;
         public MainActions(@GameInputMap wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Action => m_Wrapper.m_Main_Action;
+        public InputAction @Fire => m_Wrapper.m_Main_Fire;
         public InputAction @Look => m_Wrapper.m_Main_Look;
         public InputAction @Move => m_Wrapper.m_Main_Move;
+        public InputAction @Sprint => m_Wrapper.m_Main_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -245,28 +290,34 @@ public partial class @GameInputMap: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_MainActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_MainActionsCallbackInterfaces.Add(instance);
-            @Action.started += instance.OnAction;
-            @Action.performed += instance.OnAction;
-            @Action.canceled += instance.OnAction;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
         {
-            @Action.started -= instance.OnAction;
-            @Action.performed -= instance.OnAction;
-            @Action.canceled -= instance.OnAction;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -286,8 +337,9 @@ public partial class @GameInputMap: IInputActionCollection2, IDisposable
     public MainActions @Main => new MainActions(this);
     public interface IMainActions
     {
-        void OnAction(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }

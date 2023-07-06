@@ -11,6 +11,7 @@ namespace TechnoDemo.Input
     {
         Vector2 Move { get; }
         Vector2 Look { get; }
+        bool IsSprinting { get; }
     }
     
     [DisallowMultipleComponent]
@@ -18,6 +19,7 @@ namespace TechnoDemo.Input
     {
         public Vector2 Move => m_gameInput.Main.Move.ReadValue<Vector2>();
         public Vector2 Look => m_gameInput.Main.Look.ReadValue<Vector2>();
+        public bool IsSprinting => m_gameInput.Main.Sprint.ReadValue<float>() > 0.0f;
         
         private GameInputMap m_gameInput;
 
