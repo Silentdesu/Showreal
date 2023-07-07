@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManagerSo: {fileID: 11400000, guid: 7382cf8ed12c0a04c912479344a6d160, type: 2}
   PlayerSettingsSo: {fileID: 11400000, guid: 55a1604b69ee10d49a520c0ce80b686d, type: 2}
-  SkillContainerSo: {fileID: 11400000, guid: fa48a875750c90947b03405221a8bb36, type: 2}
+  ActionContainerSo: {fileID: 11400000, guid: fa48a875750c90947b03405221a8bb36, type: 2}

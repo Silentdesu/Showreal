@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9dfe16e15949dbb7e9dff8e2c3c2ec, type: 3}
   m_Name: PlayerSettingsSO
   m_EditorClassIdentifier: 
-  SpeedMultiplier: 100
+  m_sprintSpeed: 9
+  m_regularSpeed: 3
+  m_rotationSmoothTime: 0.12
+  m_gravity: -9.81
+  m_groundOffset: -0.14
+  m_groundSphereCastRadius: 0.28
+  m_groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  m_jumpHeight: 0
+  m_fallTimeout: 0.15

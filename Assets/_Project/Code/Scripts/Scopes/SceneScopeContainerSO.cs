@@ -1,7 +1,7 @@
 ﻿using NaughtyAttributes;
+using TechnoDemo.Actions;
 using TechnoDemo.Core;
 using TechnoDemo.Player;
-using TechnoDemo.Skills;
 using UnityEngine;
 
 namespace TechnoDemo.Scopes
@@ -11,6 +11,6 @@ namespace TechnoDemo.Scopes
     {
         [Expandable] public GameManagerSO GameManagerSo;
         [Expandable] public PlayerSettingsSO PlayerSettingsSo;
-        [Expandable] public SkillContainerSO SkillContainerSo;
+        [Expandable] public ActionContainerSO ActionContainerSo;
     }
 }

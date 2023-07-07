@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: d6e6c57c4bf07fe4e8542d119f6aac9e
   m_SerializeEntries:
   - m_GUID: 99c9720ab356a0642a771bea13969a05
-    m_Address: Assets/_Project/Level/_Scenes/Sandbox.unity
+    m_Address: Sandbox
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

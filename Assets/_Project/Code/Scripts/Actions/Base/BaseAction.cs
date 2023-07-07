@@ -1,15 +1,15 @@
 ﻿using System.Linq;
 
-namespace TechnoDemo.Skills
+namespace TechnoDemo.Actions
 {
-    public abstract class Skill
+    public abstract class BaseAction
     {
-        public SkillData Data;
+        public ActionData Data;
 
-        protected readonly ISkillHandler m_handler;
+        protected readonly IActionHandler m_handler;
         protected bool m_isRunning;
         
-        public Skill(ISkillHandler handler)
+        public BaseAction(IActionHandler handler)
         {
             m_handler = handler;
             SetData(m_handler.GetData(this));
@@ -19,13 +19,13 @@ namespace TechnoDemo.Skills
         public virtual bool CanStart()
         {
             if (IsRunning()) return false;
-            if (m_handler.ActiveSkills == null) return true;
+            if (m_handler.ActiveActions == null) return true;
             
-            System.Span<SkillTagSO> skillsSpan = m_handler.ActiveSkills;
+            System.Span<ActionTagSO> actionSpan = m_handler.ActiveActions;
 
-            for (int i = 0, count = skillsSpan.Length; i < count; i++)
+            for (int i = 0, count = actionSpan.Length; i < count; i++)
             {
-                if (Data.BlockedBy.Contains(m_handler.ActiveSkills[i])) return false;
+                if (Data.BlockedBy.Contains(m_handler.ActiveActions[i])) return false;
             }
 
             return true;
@@ -35,19 +35,19 @@ namespace TechnoDemo.Skills
         {
             this.Log($"Skill {GetType().Name} has started!");
             m_isRunning = true;
-            m_handler.TrackSkill(Data.Tag);
-            m_handler.onSkillStartedEvent?.Invoke(this);
+            m_handler.TrackAction(Data.Tag);
+            m_handler.onActionStartedEvent?.Invoke(this);
         }
 
         public virtual void Stop()
         {
             this.Log($"Skill {GetType().Name} has stopped!");
             m_isRunning = false;
-            m_handler.UntrackSkill(Data.Tag);
-            m_handler.onSkillStoppedEvent?.Invoke(this);
+            m_handler.UntrackAction(Data.Tag);
+            m_handler.onActionStoppedEvent?.Invoke(this);
         }
 
         public bool IsRunning() => m_isRunning;
-        public void SetData(in SkillData data) => Data = data;
+        public void SetData(in ActionData data) => Data = data;
     }
 }

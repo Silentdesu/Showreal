@@ -5,11 +5,11 @@ namespace TechnoDemo.Loader
 {
     public sealed class Bootstrap : MonoBehaviour
     {
-        [SerializeField] private string m_sceneName = "Sandbox";
-    
+        [SerializeField] private AssetReference m_sceneRef;
+
         private void Start()
         {
-            Addressables.LoadSceneAsync(m_sceneName);
+            Addressables.LoadSceneAsync(m_sceneRef);
         }
     }
 }

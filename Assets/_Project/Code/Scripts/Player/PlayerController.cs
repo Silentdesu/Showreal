@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using MessagePipe;
+using TechnoDemo.Actions;
 using TechnoDemo.Core;
 using TechnoDemo.Extensions;
 using TechnoDemo.Input;
 using TechnoDemo.Interfaces;
-using TechnoDemo.Skills;
 using UnityEngine;
 using UnityEngine.Profiling;
 using VContainer;
@@ -33,23 +33,30 @@ namespace TechnoDemo.Player
         public UnityEngine.Camera Camera { get; private set; }
         public PlayerSettingsSO Settings { get; private set; }
 
+        private IObjectResolver m_resolver;
         private IInput m_input;
-        private ISkillHandler m_skillHandler;
+        private IActionHandler m_actionHandler;
 
         [Inject]
-        private void Construct(ISkillHandler skillHandler)
+        private void Construct(IObjectResolver resolver)
         {
-            m_skillHandler = skillHandler;
+            m_resolver = resolver;
+            m_actionHandler = resolver.Resolve<IActionHandler>();
         }
 
         private IEnumerator Start()
         {
             Transform = transform;
             Camera = UnityEngine.Camera.main;
+            Animator = GetComponentInChildren<Animator>();
             CharacterController = GetComponent<CharacterController>();
             
-            m_skillHandler.AddSkill(new MovementSkill(m_skillHandler).Setup(this));
-            
+            m_actionHandler.AddSkill(new MovementAction(m_actionHandler, m_resolver
+                .Resolve<ISubscriber<JumpMessage>>()).Setup(this));
+            m_actionHandler.AddSkill(new JumpAction(m_actionHandler, m_resolver
+                .Resolve<IPublisher<JumpMessage>>(), m_resolver.Resolve<ISubscriber<GroundMessage>>()).Setup(this));
+            m_actionHandler.AddSkill(new GroundAction(m_actionHandler, m_resolver
+                .Resolve<IPublisher<GroundMessage>>()).Setup(this));
             yield return null;
         }
 
@@ -60,7 +67,7 @@ namespace TechnoDemo.Player
 
         private void Update()
         {
-            Span<IUpdateTickable> skills = m_skillHandler.UpdateTickSkills;
+            Span<IUpdateTickable> skills = m_actionHandler.UpdateTickActions;
 
             for (int i = 0, count = skills.Length; i < count; i++) skills[i].UpdateTick(m_input);
         }
