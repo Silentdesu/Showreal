@@ -20,6 +20,6 @@ MonoBehaviour:
   m_groundSphereCastRadius: 0.28
   m_groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  m_jumpHeight: 0
+    m_Bits: 1
+  m_jumpHeight: 10
   m_fallTimeout: 0.15

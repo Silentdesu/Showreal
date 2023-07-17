@@ -23,6 +23,8 @@ namespace TechnoDemo.Actions
         void StartActionByName(in string name);
         void StopActionByName(in string name);
         ActionData GetData(in BaseAction baseAction);
+        T GetAction<T>() where T : BaseAction;
+        bool TryGetAction<T>(out T action) where T : BaseAction;
     }
 
     public sealed class ActionHandler : IActionHandler
@@ -35,8 +37,9 @@ namespace TechnoDemo.Actions
         public Action<BaseAction> onActionStoppedEvent { get; set; }
 
         private ActionContainerSO m_container;
+        private BaseAction[] m_actions;
         
-        private readonly List<BaseAction> m_totalSkills = new List<BaseAction>(10);
+        private readonly List<BaseAction> m_totalActions = new List<BaseAction>(10);
         private readonly List<ActionTagSO> m_activeActions = new List<ActionTagSO>(3);
         private readonly List<IUpdateTickable> m_updateTickActions = new List<IUpdateTickable>(3);
 
@@ -48,8 +51,8 @@ namespace TechnoDemo.Actions
         
         public void AddSkill(in BaseAction baseAction)
         {
-            if (m_totalSkills.Contains(baseAction)) return;
-            m_totalSkills.Add(baseAction);
+            if (m_totalActions.Contains(baseAction)) return;
+            m_totalActions.Add(baseAction);
             if (baseAction is IUpdateTickable updateTick) m_updateTickActions.Add(updateTick);
             if (baseAction.Data.AutoStart && baseAction.CanStart()) baseAction.Start();
             UpdateToArray();
@@ -57,8 +60,8 @@ namespace TechnoDemo.Actions
 
         public void RemoveAction(in BaseAction baseAction)
         {
-            if (!m_totalSkills.Contains(baseAction)) return;
-            m_totalSkills.Remove(baseAction);
+            if (!m_totalActions.Contains(baseAction)) return;
+            m_totalActions.Remove(baseAction);
             UpdateToArray();
         }
 
@@ -74,7 +77,7 @@ namespace TechnoDemo.Actions
 
         public void StartActionByName(in string name)
         {
-            foreach (var skill in m_totalSkills)
+            foreach (var skill in m_totalActions)
             {
                 if (!(skill.CanStart() && String.CompareOrdinal(skill.Data.Tag.name, name) != 0)) continue;
                 
@@ -85,7 +88,7 @@ namespace TechnoDemo.Actions
 
         public void StopActionByName(in string name)
         {
-            foreach (var skill in m_totalSkills)
+            foreach (var skill in m_totalActions)
             {
                 if (!(skill.CanStart() && String.CompareOrdinal(skill.Data.Tag.name, name) != 0)) continue;
                 
@@ -102,7 +105,7 @@ namespace TechnoDemo.Actions
             for (int i = 0, count = data.Length; i < count; i++)
             {
                 temp = data[i];
-                if (String.CompareOrdinal(temp.Tag.name, baseAction.GetType().Name) == 0) continue;
+                if (String.CompareOrdinal(temp.Tag.name, baseAction.GetType().Name) != 0) continue;
 
                 return temp;
             }
@@ -110,10 +113,29 @@ namespace TechnoDemo.Actions
             return temp;
         }
 
+        public T GetAction<T>() where T : BaseAction
+        {
+            Span<BaseAction> actions = m_actions;
+            
+            for (int i = 0, count = actions.Length; i < count; i++)
+            {
+                if (actions[i] is T action) return action;
+            }
+
+            return null;
+        }
+
+        public bool TryGetAction<T>(out T action) where T : BaseAction
+        {
+            action = GetAction<T>();
+            return action != null;
+        }
+
         private void UpdateToArray()
         {
             ActiveActions = m_activeActions.ToArray();
             UpdateTickActions = m_updateTickActions.ToArray();
+            m_actions = m_totalActions.ToArray();
         }
     }
 

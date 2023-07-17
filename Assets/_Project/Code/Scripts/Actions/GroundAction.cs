@@ -33,6 +33,9 @@ namespace TechnoDemo.Actions
     }
     
     public sealed class GroundAction : BaseAction, ISetuper<GroundAction>, IUpdateTickable
+    #if UNITY_EDITOR || DEBUG
+        , IDev
+    #endif
     {
         private Transform m_transform;
         private Animator m_animator;
@@ -56,7 +59,6 @@ namespace TechnoDemo.Actions
         
         public void UpdateTick(in IInput input)
         {
-            if (!IsRunning()) return;
             GroundCheck();
         }
         
@@ -69,11 +71,23 @@ namespace TechnoDemo.Actions
             if (m_animator)
             {
                 m_animator.SetInteger(AnimatorParameters.ActionID, Data.Id);
-                m_animator.SetBool(AnimatorParameters.Grounded, grounded);
             }
             
             m_publisher?.Publish(new GroundMessage(grounded));
         }
 
+        public void OnDrawGizmos()
+        {
+            if (m_transform == null) return;
+
+            var origin = m_transform.position - Vector3.up * m_playerSettings.GroundOffset;
+            
+            Gizmos.color = Color.green;
+            var color = Gizmos.color;
+            color.a = 0.5f;
+            Gizmos.color = color;
+            
+            Gizmos.DrawWireSphere(origin, m_playerSettings.GroundSphereCastRadius);
+        }
     }
 }

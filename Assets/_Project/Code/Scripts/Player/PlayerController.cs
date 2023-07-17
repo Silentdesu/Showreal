@@ -19,7 +19,7 @@ namespace TechnoDemo.Player
         Animator Animator { get; }
         UnityEngine.Camera Camera { get; }
         PlayerSettingsSO Settings { get; }
-        
+
         void Inject(in IGameManager gameManager);
     }
 
@@ -44,13 +44,25 @@ namespace TechnoDemo.Player
             m_actionHandler = resolver.Resolve<IActionHandler>();
         }
 
+        void IPlayer.Inject(in IGameManager gameManager)
+        {
+            Profiler.BeginSample($"{nameof(PlayerController)} {nameof(IPlayer.Inject)}()");
+            Settings = gameManager.ContainerSO.PlayerSettingsSo;
+
+            if (gameManager.GetSpawnedContexts().TryGetObject(out IInput input))
+                m_input = input;
+
+            this.LogInjectSuccess();
+            Profiler.EndSample();
+        }
+
         private IEnumerator Start()
         {
             Transform = transform;
             Camera = UnityEngine.Camera.main;
             Animator = GetComponentInChildren<Animator>();
             CharacterController = GetComponent<CharacterController>();
-            
+
             m_actionHandler.AddSkill(new MovementAction(m_actionHandler, m_resolver
                 .Resolve<ISubscriber<JumpMessage>>()).Setup(this));
             m_actionHandler.AddSkill(new JumpAction(m_actionHandler, m_resolver
@@ -67,21 +79,28 @@ namespace TechnoDemo.Player
 
         private void Update()
         {
-            Span<IUpdateTickable> skills = m_actionHandler.UpdateTickActions;
+            Profiler.BeginSample($"{nameof(PlayerController)} {nameof(Update)}()");
+            Span<IUpdateTickable> actions = m_actionHandler.UpdateTickActions;
 
-            for (int i = 0, count = skills.Length; i < count; i++) skills[i].UpdateTick(m_input);
+            for (int i = 0, count = actions.Length; i < count; i++)
+            {
+                if (actions[i] is IAction action && action.IsRunning())
+                    actions[i].UpdateTick(m_input);
+            }
+
+            Profiler.EndSample();
         }
 
-        void IPlayer.Inject(in IGameManager gameManager)
+        public void OnDrawGizmos()
         {
-            Profiler.BeginSample($"{nameof(PlayerController)} Inject()");
+            Profiler.BeginSample($"{nameof(PlayerController)} {nameof(OnDrawGizmos)}");
+            Span<IUpdateTickable> actions = m_actionHandler.UpdateTickActions;
 
-            Settings = gameManager.ContainerSO.PlayerSettingsSo;
+            for (int i = 0, count = actions.Length; i < count; i++)
+            {
+                if (actions[i] is IDev dev) dev.OnDrawGizmos();
+            }
 
-            if (gameManager.GetSpawnedContexts().TryGetObject(out IInput input))
-                m_input = input;
-
-            this.LogInjectSuccess();
             Profiler.EndSample();
         }
     }

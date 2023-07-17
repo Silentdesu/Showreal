@@ -34,6 +34,7 @@ namespace TechnoDemo.Actions
 
     public sealed class JumpAction : BaseAction, ISetuper<JumpAction>, IUpdateTickable, IDisposable
     {
+        private CharacterController m_characterController;
         private Animator m_animator;
         private PlayerSettingsSO m_playerSettings;
 
@@ -58,6 +59,7 @@ namespace TechnoDemo.Actions
 
         public JumpAction Setup(in IPlayer player)
         {
+            m_characterController = player.CharacterController;
             m_animator = player.Animator;
             m_playerSettings = player.Settings;
 
@@ -66,7 +68,6 @@ namespace TechnoDemo.Actions
 
         public void UpdateTick(in IInput input)
         {
-            if (!IsRunning()) return;
             JumpAndGravity(input);
         }
 
@@ -78,8 +79,8 @@ namespace TechnoDemo.Actions
 
             if (m_animator)
             {
-                m_animator.SetBool(AnimatorParameters.Jump, false);
-                m_animator.SetBool(AnimatorParameters.FreeFall, false);
+                // m_animator.SetBool(AnimatorParameters.Jump, false);
+                // m_animator.SetBool(AnimatorParameters.FreeFall, false);
             }
 
             if (m_verticalVelocity < 0.0f) m_verticalVelocity = -2.0f;
@@ -91,9 +92,11 @@ namespace TechnoDemo.Actions
                 if (m_animator)
                 {
                     m_animator.SetInteger(AnimatorParameters.ActionID, Data.Id);
-                    m_animator.SetBool(AnimatorParameters.Jump, true);
+                    // m_animator.SetBool(AnimatorParameters.Jump, true);
                 }
             }
+            
+            m_characterController.Move(Vector3.up * (m_verticalVelocity * Time.deltaTime));
 
             m_publisher?.Publish(new JumpMessage(m_verticalVelocity));
         }

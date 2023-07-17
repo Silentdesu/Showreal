@@ -2,7 +2,12 @@
 
 namespace TechnoDemo.Actions
 {
-    public abstract class BaseAction
+    public interface IAction
+    {
+        bool IsRunning();
+    }
+    
+    public abstract class BaseAction : IAction
     {
         public ActionData Data;
 

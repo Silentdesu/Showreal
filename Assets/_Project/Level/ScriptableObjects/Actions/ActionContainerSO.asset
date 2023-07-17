@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: ActionContainerSO
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-  - Tag: {fileID: 11400000, guid: 9a145d5e36899c549b42e7372a2c0c53, type: 2}
+  - Id: 0
+    Tag: {fileID: 11400000, guid: 9a145d5e36899c549b42e7372a2c0c53, type: 2}
+    AutoStart: 1
+    BlockedBy: []
+  - Id: 1
+    Tag: {fileID: 11400000, guid: b7ac71a3be2ead14db4f5f69aeca4086, type: 2}
+    AutoStart: 1
+    BlockedBy: []
+  - Id: 2
+    Tag: {fileID: 11400000, guid: 7189e772b6259fc40ae0dcb89237752c, type: 2}
     AutoStart: 1
     BlockedBy: []

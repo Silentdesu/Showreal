@@ -45,8 +45,6 @@ namespace TechnoDemo.Actions
 
         public void UpdateTick(in IInput input)
         {
-            if (!IsRunning()) return;
-
             Move(input);
         }
 
