@@ -22,7 +22,7 @@ namespace TechnoDemo.Player
         public float SprintSpeed => m_sprintSpeed;
         public float RegularSpeed => m_regularSpeed;
         public float RotationSmoothTime => m_rotationSmoothTime;
-        public float Gravit => m_gravity;
+        public float Gravity => m_gravity;
         public float GroundOffset => m_groundOffset;
         public float GroundSphereCastRadius => m_groundSphereCastRadius;
         public LayerMask GroundLayer => m_groundLayer;

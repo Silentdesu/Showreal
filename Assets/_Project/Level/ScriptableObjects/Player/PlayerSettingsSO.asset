@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerSettingsSO
   m_EditorClassIdentifier: 
   m_sprintSpeed: 9
-  m_regularSpeed: 3
+  m_regularSpeed: 248
   m_rotationSmoothTime: 0.12
   m_gravity: -9.81
   m_groundOffset: -0.14

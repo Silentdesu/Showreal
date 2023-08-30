@@ -87,7 +87,7 @@ namespace TechnoDemo.Actions
 
             if (input.IsJumping && m_jumpTimeoutDelta <= 0.0f)
             {
-                m_verticalVelocity = Mathf.Sqrt(m_playerSettings.JumpHeight * -2.0f * m_playerSettings.Gravit);
+                m_verticalVelocity = Mathf.Sqrt(m_playerSettings.JumpHeight * -2.0f * m_playerSettings.Gravity);
 
                 if (m_animator)
                 {
