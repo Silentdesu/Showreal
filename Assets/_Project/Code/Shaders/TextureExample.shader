@@ -16,6 +16,9 @@ Shader "QualityShaders/TextureExample"
 
         Pass
         {
+            ZTest LEqual
+            ZWrite On
+            
             Tags
             {
                 "LightMode"="UniversalForward"
