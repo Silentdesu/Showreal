@@ -50,7 +50,7 @@
             #pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
             #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
-            
+
             #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
             #pragma multi_compile _ SHADOWS_SHADOWMASK
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED
@@ -107,27 +107,27 @@
 
                 const VertexPositionInputs vertexInput = GetVertexPositionInputs(v.positionOS.xyz);
                 const VertexNormalInputs normalInput = GetVertexNormalInputs(v.normalOS, v.tangentOS);
-                
+
                 o.positionWS = vertexInput.positionWS;
                 o.positionCS = vertexInput.positionCS;
-                
+
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                
+
                 o.normalWS = normalInput.normalWS;
-                
+
                 float sign = v.tangentOS.w;
                 o.tangentWS = float4(normalInput.tangentWS.xyz, sign);
-                
+
                 o.viewDirWS = GetWorldSpaceNormalizeViewDir(vertexInput.positionWS);
-                
+
                 o.shadowCoord = GetShadowCoord(vertexInput);
-                
+
                 OUTPUT_LIGHTMAP_UV(v.staticLightmapUV, unity_LightmapST, o.staticLightmapUV);
                 #ifdef DYNAMICLIGHTMAP_ON
                 v.dynamicLightmapUV = v.dynamicLightmapUV.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
                 #endif
-                OUTPUT_SH(o.normalWS.xyz, o.vertexSH);
-                
+                    OUTPUT_SH(o.normalWS.xyz, o.vertexSH);
+
                 return o;
             }
 
@@ -164,16 +164,16 @@
                 InputData inputData = (InputData)0;
 
                 inputData.positionWS = i.positionWS;
-                
+
                 const float3 bitagent = i.tangentWS.w * cross(i.normalWS, i.tangentWS.xyz);
                 inputData.tangentToWorld = float3x3(i.tangentWS.xyz, bitagent, i.normalWS);
                 inputData.normalWS = TransformTangentToWorld(normalTS, inputData.tangentToWorld);
                 inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
-                
+
                 inputData.viewDirectionWS = SafeNormalize(i.viewDirWS);
-                
+
                 inputData.shadowCoord = TransformWorldToShadowCoord(inputData.positionWS);
-                
+
                 #if defined(DYNAMICLIGHTMAP_ON)
                 inputData.bakedGI = SAMPLE_GI(i.staticLightmapUV, i.dynamicLightmapUV, i.vertexSH, inputData.normalWS);
                 #else
@@ -192,6 +192,29 @@
 
                 return UniversalFragmentPBR(inputData, surfaceData);
             }
+            ENDHLSL
+        }
+
+        Pass
+        {
+            Name "ShadowCaster"
+            Tags { "LightMode" = "ShadowCaster" }
+            
+            ZWrite On
+            ZTest LEqual
+            
+            HLSLPROGRAM
+
+            #pragma vertex ShadowPassVertex
+            #pragma fragment ShadowPassFragment
+
+            #pragma multi_compile_instancing
+
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+            
             ENDHLSL
         }
     }
