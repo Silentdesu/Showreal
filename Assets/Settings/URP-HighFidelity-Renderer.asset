@@ -239,7 +239,8 @@ MonoBehaviour:
   - {fileID: -1055793966943900092}
   - {fileID: -4051824370433568214}
   - {fileID: -1751516293696904100}
-  m_RendererFeatureMap: adc0de57c6d2eee5c22a9a9c0172d8a59d54a340cdbd108144ee4e1cfb1059f12a5209dc3307c5c75c24e3f7355db1e7
+  - {fileID: 8032077803971772641}
+  m_RendererFeatureMap: adc0de57c6d2eee5c22a9a9c0172d8a59d54a340cdbd108144ee4e1cfb1059f12a5209dc3307c5c75c24e3f7355db1e7e18009fa34ac776f
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -282,3 +283,16 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &8032077803971772641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db46b0f3df24c34befeaa3008fb6291, type: 3}
+  m_Name: Gaussian Blur
+  m_EditorClassIdentifier: 
+  m_Active: 1
