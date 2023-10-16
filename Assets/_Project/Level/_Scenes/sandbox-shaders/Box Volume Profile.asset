@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e7901784e046138cf14ca9c52f537f, type: 3}
   m_Name: GrayscaleSettings
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   Strength:
     m_OverrideState: 1
     m_Value: 1

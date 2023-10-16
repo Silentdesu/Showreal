@@ -3,7 +3,7 @@
     Properties
     {
         [MainColor] _Color ("Color", Color) = (1, 1, 1, 1)
-        [MainTex] _MainTex ("Texture", 2D) = "white" {}
+        [MainTex] _BaseTex ("Texture", 2D) = "white" {}
 
         _MetallicTex ("Metallic Texture", 2D) = "white" {}
         _MetallicStrength ("Metallic Strength", Range(0, 1)) = 0
@@ -86,14 +86,14 @@
                 #endif
             };
 
-            sampler2D _MainTex;
+            sampler2D _BaseTex;
             sampler2D _MetallicTex;
             sampler2D _NormalTex;
             sampler2D _EmissionTex;
             sampler2D _AOTex;
 
             CBUFFER_START(UnityPerMaterial)
-                float4 _MainTex_ST;
+                float4 _BaseTex_ST;
                 half4 _Color;
                 half4 _EmissionColor;
                 float _MetallicStrength;
@@ -111,7 +111,7 @@
                 o.positionWS = vertexInput.positionWS;
                 o.positionCS = vertexInput.positionCS;
 
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = TRANSFORM_TEX(v.uv, _BaseTex);
 
                 o.normalWS = normalInput.normalWS;
 
@@ -135,7 +135,7 @@
             {
                 SurfaceData surfaceData = (SurfaceData)0;
 
-                const float4 albedo = tex2D(_MainTex, i.uv);
+                const float4 albedo = tex2D(_BaseTex, i.uv);
                 surfaceData.albedo = albedo.rgb * _Color.rgb;
 
                 const float4 metallic = tex2D(_MetallicTex, i.uv);
