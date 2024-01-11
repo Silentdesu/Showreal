@@ -7,10 +7,10 @@
     <li>
       <a href="#about-the-project">About The Project</a>
         <ul>
-            <li><a href="#project-structure">Project Structure</a></li>
-            <li><a href="#git-flow">Git Flow</a></li>
+            <li><a href="#project-structure">Project structure</a></li>
+            <li><a href="#git-flow">Git flow</a></li>
             <li><a href="#answers">Answers</a></li>
-            <li><a href="#shaders-portfolio">Shader Portfolio</a></li>
+            <li><a href="#shaders-portfolio">Shaders portfolio</a></li>
         </ul>
     </li>
   </ol>
@@ -45,6 +45,6 @@ main
 
 ## Shaders portfolio:
 
-![](/Assets/_Project/Portfolio/ShaderPortfolio.gif)
+![](https://github.com/Silentdesu/TechnoDemo/blob/feature/shaders/Assets/_Project/Portfolio/ShaderPortfolio.gif)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
