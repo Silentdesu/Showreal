@@ -43,8 +43,8 @@ main
 
 * Naming convention took from C++ for practice and to test efficiency of this method.
 
-## Shader Portfolio:
+## Shaders portfolio:
 
-![Shader Portfolio](/Assets/_Project/Portfolio/ShaderPortfolio.gif)
+![](/Assets/_Project/Portfolio/ShaderPortfolio.gif)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
