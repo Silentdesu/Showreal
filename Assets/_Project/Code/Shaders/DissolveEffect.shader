@@ -8,6 +8,8 @@
         _CutoffHeight ("Cutoff Height", Range(-1, 1)) = 0.0
         _NoiseScale ("Noise Scale", Float) = 20
         _NoiseStrength ("Noise Strength", Range(0.0, 1.0)) = 0.5
+        
+        _Speed ("Speed", Float) = 10
     }
     SubShader
     {
@@ -52,6 +54,7 @@
                 half _CutoffHeight;
                 half _NoiseScale;
                 half _NoiseStrength;
+                half _Speed;
             CBUFFER_END
 
             float2 generateDir(float2 p)
@@ -94,7 +97,7 @@
             half4 frag(v2f i) : SV_Target
             {
                 const float noiseSample = gradientNoise(i.uv, _NoiseScale) * _NoiseStrength;
-                const float noisyPosition = i.positionOS.y + noiseSample;
+                const float noisyPosition = i.positionOS.y + (noiseSample * (sin(_Time.y) * _Speed));
 
                 if (noisyPosition > _CutoffHeight) discard;
 
