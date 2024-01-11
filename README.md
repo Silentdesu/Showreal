@@ -45,6 +45,6 @@ main
 
 ## Shaders portfolio:
 
-![](https://github.com/Silentdesu/TechnoDemo/blob/feature/shaders/Assets/_Project/Portfolio/ShaderPortfolio.mp4)
+![GIF](https://github.com/Silentdesu/TechnoDemo/blob/feature/shaders/Assets/_Project/Portfolio/ShaderPortfolio.gif)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
