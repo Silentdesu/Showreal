@@ -19,7 +19,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Showcase of skills earned making some commercial projects and learn!
+Showcase of my skills earned by making some commercial projects and learning new stuff!
 
 ## Project structure:
 
